@@ -43,144 +43,343 @@
 	//before anything, add your variables as “var …”
 
 
-var column;
-var row;
-var squaresize = 80;
-var startingpos = 300;
+// var column;
+// var row;
+// // var squaresize = 80;
+// // var startingpos = 300;
+//
+// // dark pieces
+//
+// var kd;
+// var qd;
+// var bd1;
+// var bd2;
+// var nd1;
+// var nd2;
+// var rd1;
+// var rd2;
+//
+// var pd1;
+// var pd2;
+// var pd3;
+// var pd4;
+// var pd5;
+// var pd6;
+// var pd7;
+// var pd8;
+//
+// //light pieces
+//
+// var kl;
+// var ql;
+// var bl1;
+// var bl2;
+// var nl1;
+// var nl2;
+// var rl1;
+// var rl2;
+//
+// var pl1;
+// var pl2;
+// var pl3;
+// var pl4;
+// var pl5;
+// var pl6;
+// var pl7;
+// var pl8;
 
-// dark pieces
-
-var kd;
-var qd;
-var bd1;
-var bd2;
-var nd1;
-var nd2;
-var rd1;
-var rd2;
-
-var pd1;
-var pd2;
-var pd3;
-var pd4;
-var pd5;
-var pd6;
-var pd7;
-var pd8;
-
-//light pieces
-
-var kl;
-var ql;
-var bl1;
-var bl2;
-var nl1;
-var nl2;
-var rl1;
-var rl2;
-
-var pl1;
-var pl2;
-var pl3;
-var pl4;
-var pl5;
-var pl6;
-var pl7;
-var pl8;
-
-
-var dpiecenumb;
-
-var lpiecenumb;
 
 var dpieces;
-
 var lpieces;
 
 var c;
 
-function preload() {
-   kd = loadImage('https://upload.wikimedia.org/wikipedia/commons/e/e3/Chess_kdt60.png');
-   qd = loadImage('https://upload.wikimedia.org/wikipedia/commons/a/af/Chess_qdt60.png');
-   bd1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/8/81/Chess_bdt60.png');
-   bd2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/8/81/Chess_bdt60.png');
-   nd1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/f/f1/Chess_ndt60.png');
-   nd2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/f/f1/Chess_ndt60.png');
-   rd1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/a/a0/Chess_rdt60.png');
-   rd2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/a/a0/Chess_rdt60.png');
+// let startingpos = 300; // board
+var board_start_X = 300;
+var board_start_Y = 20;
+var squaresize = 80;
+var piece_start_in_cell_X = 10;
+var piece_start_in_cell_Y = 10;
 
-   pd1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
-   pd2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
-   pd3 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
-   pd4 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
-   pd5 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
-   pd6 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
-   pd7 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
-   pd8 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
+class Piece {
+   constructor(name, imageLocation, cell_x, cell_y) {
+      this.name = name
+      this.img = loadImage(imageLocation);
+      this.x = cell_x;
+      this.y = cell_y;
+      // this.place_init();
+   }
 
-   kl = loadImage('https://upload.wikimedia.org/wikipedia/commons/3/3b/Chess_klt60.png');
-   ql = loadImage('https://upload.wikimedia.org/wikipedia/commons/4/49/Chess_qlt60.png');
-   bl1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/9/9b/Chess_blt60.png');
-   bl2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/9/9b/Chess_blt60.png');
-   nl1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/2/28/Chess_nlt60.png');
-   nl2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/2/28/Chess_nlt60.png');
-   rl1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/5/5c/Chess_rlt60.png');
-   rl2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/5/5c/Chess_rlt60.png');
+   place_init() {
+      // let board_start_X = 300;
+      // let board_start_Y = 20;
+      // let squaresize = 80;
+      // let piece_start_in_cell_X = 10;
+      // let piece_start_in_cell_Y = 10;
+      let img_pos_X = board_start_X + this.x*squaresize + piece_start_in_cell_X;
+      let img_pos_Y = board_start_Y + this.y*squaresize + piece_start_in_cell_Y;
+      image(this.img, img_pos_X, img_pos_Y);
+   }
 
-   pl1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
-   pl2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
-   pl3 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
-   pl4 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
-   pl5 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
-   pl6 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
-   pl7 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
-   pl8 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
+   place(cell_x, cell_y) {
+      this.x = cell_x;
+      this.y = cell_y;
+      this.place_init();
+   }
+
+   ishere(cell_x, cell_y) {
+      if(this.x === cell_x && this.y === cell_y) {
+         return true;
+      } else {
+         return false;
+      }
+   }
+
+   getPos() {
+      let x = this.x;
+      let y = this.y;
+      return { x, y };
+   }
+}
+
+function mypreload() {
 
 }
+
+function preload() {
+   dpieces = [
+      new Piece("kd", 'https://upload.wikimedia.org/wikipedia/commons/e/e3/Chess_kdt60.png',4,0),
+      new Piece("qd", 'https://upload.wikimedia.org/wikipedia/commons/a/af/Chess_qdt60.png',3,0),
+      new Piece("bd1", 'https://upload.wikimedia.org/wikipedia/commons/8/81/Chess_bdt60.png',5,0),
+      new Piece("bd2", 'https://upload.wikimedia.org/wikipedia/commons/8/81/Chess_bdt60.png',2,0),
+      new Piece("nd1", 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Chess_ndt60.png',1,0),
+      new Piece("nd2", 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Chess_ndt60.png',6,0),
+      new Piece("rd1", 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Chess_rdt60.png',0,0),
+      new Piece("rd2", 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Chess_rdt60.png',7,0),
+
+      new Piece("pd1", 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png',0,1),
+      new Piece("pd2", 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png',1,1),
+      new Piece("pd3", 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png',2,1),
+      new Piece("pd4", 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png',3,1),
+      new Piece("pd5", 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png',4,1),
+      new Piece("pd6", 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png',5,1),
+      new Piece("pd7", 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png',6,1),
+      new Piece("pd8", 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png',7,1)
+   ];
+
+   lpieces = [
+      new Piece('kl', 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Chess_klt60.png',4,7),
+      new Piece('ql', 'https://upload.wikimedia.org/wikipedia/commons/4/49/Chess_qlt60.png',3,7),
+      new Piece('bl1', 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Chess_blt60.png',5,7),
+      new Piece('bl2', 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Chess_blt60.png',2,7),
+      new Piece('nl1', 'https://upload.wikimedia.org/wikipedia/commons/2/28/Chess_nlt60.png',1,7),
+      new Piece('nl2', 'https://upload.wikimedia.org/wikipedia/commons/2/28/Chess_nlt60.png',6,7),
+      new Piece('rl1', 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Chess_rlt60.png',0,7),
+      new Piece('rl2', 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Chess_rlt60.png',7,7),
+
+      new Piece('pl1', 'https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png',0,6),
+      new Piece('pl2', 'https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png',1,6),
+      new Piece('pl3', 'https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png',2,6),
+      new Piece('pl4', 'https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png',3,6),
+      new Piece('pl5', 'https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png',4,6),
+      new Piece('pl6', 'https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png',5,6),
+      new Piece('pl7', 'https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png',6,6),
+      new Piece('pl8', 'https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png',7,6)
+   ];
+
+}
+
+
+
+var piece_images = [];
 
 function setup() {
    createCanvas(displayWidth, displayHeight);
 
-}
-
-function draw() {
-   var dpieces = [rd1, nd1, bd1, qd, kd, bd2, nd2, rd2, pd1, pd2, pd3, pd4, pd5, pd6, pd7, pd8];
-
-   var lpieces = [rl1, nl1, bl1, ql, kl, bl2, nl2, rl2, pl1, pl2, pl3, pl4, pl5, pl6, pl7, pl8];
+   // var dpieces = [rd1, nd1, bd1, qd, kd, bd2, nd2, rd2, pd1, pd2, pd3, pd4, pd5, pd6, pd7, pd8];
+   // var lpieces = [rl1, nl1, bl1, ql, kl, bl2, nl2, rl2, pl1, pl2, pl3, pl4, pl5, pl6, pl7, pl8];
 
    background(255, 255, 255);
    strokeWeight(1);
    fill(255, 255, 255);
-   rect(startingpos, 20, squaresize*8, squaresize*8);
+   rect(board_start_X, board_start_Y, squaresize*8, squaresize*8);
    noStroke();
+   let column, row;
    for (column = 0; column < 8; column ++) {
       for (row = 0; row < 8; row ++) {
          if ((column % 2 === 0 && row % 2 === 0) || (column % 2 === 1 && row % 2 === 1)) {
             fill(60, 150, 90);
-            rect(startingpos+row*squaresize, 20+column*squaresize, squaresize, squaresize);
+            rect(board_start_X+row*squaresize, board_start_Y+column*squaresize, squaresize, squaresize);
          }
       }
    }
-   for (dpiecenumb = 0; dpiecenumb < 8; dpiecenumb ++) {
-      image(dpieces[dpiecenumb], 10+startingpos+squaresize*dpiecenumb, 30);
-   }
-   if (dpiecenumb > 7) {
-      for (dpiecenumb = 8; dpiecenumb < 16; dpiecenumb ++) {
-         image(dpieces[dpiecenumb], 10+startingpos+squaresize*(dpiecenumb-8), 30+squaresize);
-      }
-   }
-   for (lpiecenumb = 0; lpiecenumb < 8; lpiecenumb ++) {
-      image(lpieces[lpiecenumb], 10+startingpos+squaresize*lpiecenumb, 7*squaresize+30);
-   }
-   if (dpiecenumb > 7) {
-      for (lpiecenumb = 8; lpiecenumb < 16; lpiecenumb ++) {
-         image(lpieces[lpiecenumb], 10+startingpos+squaresize*(lpiecenumb-8), 7*squaresize+30-squaresize);
-      }
+
+   var i;
+   for (i = 0; i < dpieces.length; i++) {
+      dpieces[i].place_init();
    }
 
+   for (i = 0; i < lpieces.length; i++) {
+      lpieces[i].place_init();
+   }
 
+   //mypreload();
+
+   // var dpiecenumb;
+   //
+   // var lpiecenumb;
+   //
+   // for (dpiecenumb = 0; dpiecenumb < 8; dpiecenumb ++) {
+   //    let img = image(dpieces[dpiecenumb], 10+startingpos+squaresize*dpiecenumb, 30);
+   //    piece_images.push(img);
+   // }
+   // if (dpiecenumb > 7) {
+   //    for (dpiecenumb = 8; dpiecenumb < 16; dpiecenumb ++) {
+   //       let img = image(dpieces[dpiecenumb], 10+startingpos+squaresize*(dpiecenumb-8), 30+squaresize);
+   //       piece_images.push(img);
+   //    }
+   // }
+   // for (lpiecenumb = 0; lpiecenumb < 8; lpiecenumb ++) {
+   //    let img = image(lpieces[lpiecenumb], 10+startingpos+squaresize*lpiecenumb, 7*squaresize+30);
+   //    piece_images.push(img);
+   // }
+   // if (dpiecenumb > 7) {
+   //    for (lpiecenumb = 8; lpiecenumb < 16; lpiecenumb ++) {
+   //       let img = image(lpieces[lpiecenumb], 10+startingpos+squaresize*(lpiecenumb-8), 7*squaresize+30-squaresize);
+   //       piece_images.push(img);
+   //    }
+   // }
 
 }
+
+
+
+var selected_piece = undefined;
+
+function mousePressed(event) {
+   let cell_X = int((mouseX-board_start_X)/squaresize);
+   let cell_Y = int((mouseY-board_start_Y)/squaresize);
+
+   if(selected_piece === undefined) { // get the selected piece (from piece)
+      var i;
+      for (i = 0; i < dpieces.length; i++) {
+         if(dpieces[i].ishere(cell_X, cell_Y)) {
+            selected_piece = dpieces[i];
+            break;
+         }
+      }
+
+      if (selected_piece === undefined) {
+         for (i = 0; i < lpieces.length; i++) {
+            if(lpieces[i].ishere(cell_X, cell_Y)) {
+               selected_piece = lpieces[i];
+               break;
+            }
+         }
+      }
+   } else { //place the selected piece
+      if(cell_X >= 0 && cell_X <= 10 && cell_Y >=0 && cell_Y <= 8) { // The To place is not outside the board
+      var already_exists = false;
+      var i;
+      for (i = 0; i < dpieces.length; i++) {
+         if(dpieces[i].ishere(cell_X, cell_Y)) {
+            already_exists = true;
+            break;
+         }
+      }
+
+      if (!already_exists) {
+         for (i = 0; i < lpieces.length; i++) {
+            if(lpieces[i].ishere(cell_X, cell_Y)) {
+               already_exists = true;
+            }
+         }
+      }
+
+      if (!already_exists) {
+         select_Pos = selected_piece.getPos();
+         if ((select_Pos.x % 2 === 0 && select_Pos.y % 2 === 0) || (select_Pos.x % 2 === 1 && select_Pos.y % 2 === 1)) {
+            fill(60, 150, 90);
+            rect(board_start_X+select_Pos.x*squaresize, board_start_Y+select_Pos.y*squaresize, squaresize, squaresize);
+         }
+         if ((select_Pos.x % 2 === 0 && select_Pos.y % 2 === 1) || (select_Pos.x % 2 === 1 && select_Pos.y % 2 === 0)) {
+            fill(255, 255, 255);
+            rect(board_start_X+select_Pos.x*squaresize, board_start_Y+select_Pos.y*squaresize, squaresize, squaresize);
+         }
+         selected_piece.place(cell_X, cell_Y);
+         selected_piece = undefined;
+      }
+      }
+   }
+
+}
+
+
+
+function my_mousePressed(event) {
+
+
+   // console.log(event.offsetX, event.offsetY);
+   console.log("Start Pos in the page: ("+board_start_X+","+ board_start_Y + ")");
+   console.log("Clicked at: ("+mouseX+","+ mouseY+")");
+   let cell_X = int((mouseX-board_start_X)/squaresize);
+   let cell_Y = int((mouseY-board_start_Y)/squaresize);
+   console.log("My Board Cell Pos: ("+cell_X+","+ cell_Y+")");
+   let img_pos_X = board_start_X + cell_X*squaresize + piece_start_in_cell_X;
+   let img_pos_Y = board_start_Y + cell_Y*squaresize + piece_start_in_cell_Y;
+   console.log("Piece Image Pos: ("+img_pos_X+","+ img_pos_Y+")");
+
+   // var dpieces = [rd1, nd1, bd1, qd, kd, bd2, nd2, rd2, pd1, pd2, pd3, pd4, pd5, pd6, pd7, pd8];
+
+   // image(dpieces[0], mouseX, mouseY);
+   dpieces[0].place(img_pos_X, img_pos_Y);
+
+   // var i;
+   // for (i = 0; i < piece_images.length; i++) {
+   //    console.log(piece_images[i]);
+   // }
+}
+
+
+// function preload() {
+//    kd = loadImage('https://upload.wikimedia.org/wikipedia/commons/e/e3/Chess_kdt60.png');
+//    qd = loadImage('https://upload.wikimedia.org/wikipedia/commons/a/af/Chess_qdt60.png');
+//    bd1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/8/81/Chess_bdt60.png');
+//    bd2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/8/81/Chess_bdt60.png');
+//    nd1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/f/f1/Chess_ndt60.png');
+//    nd2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/f/f1/Chess_ndt60.png');
+//    rd1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/a/a0/Chess_rdt60.png');
+//    rd2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/a/a0/Chess_rdt60.png');
+//
+//    pd1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
+//    pd2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
+//    pd3 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
+//    pd4 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
+//    pd5 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
+//    pd6 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
+//    pd7 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
+//    pd8 = loadImage('https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png');
+//
+//    kl = loadImage('https://upload.wikimedia.org/wikipedia/commons/3/3b/Chess_klt60.png');
+//    ql = loadImage('https://upload.wikimedia.org/wikipedia/commons/4/49/Chess_qlt60.png');
+//    bl1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/9/9b/Chess_blt60.png');
+//    bl2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/9/9b/Chess_blt60.png');
+//    nl1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/2/28/Chess_nlt60.png');
+//    nl2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/2/28/Chess_nlt60.png');
+//    rl1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/5/5c/Chess_rlt60.png');
+//    rl2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/5/5c/Chess_rlt60.png');
+//
+//    pl1 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
+//    pl2 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
+//    pl3 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
+//    pl4 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
+//    pl5 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
+//    pl6 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
+//    pl7 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
+//    pl8 = loadImage('https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png');
+//
+// }
+
 
 </script>
 
