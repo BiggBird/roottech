@@ -278,37 +278,37 @@ function mousePressed(event) {
          }
       }
    } else { //place the selected piece
-      if(cell_X >= 0 && cell_X <= 10 && cell_Y >=0 && cell_Y <= 8) { // The To place is not outside the board
-      var already_exists = false;
-      var i;
-      for (i = 0; i < dpieces.length; i++) {
-         if(dpieces[i].ishere(cell_X, cell_Y)) {
-            already_exists = true;
-            break;
-         }
-      }
-
-      if (!already_exists) {
-         for (i = 0; i < lpieces.length; i++) {
-            if(lpieces[i].ishere(cell_X, cell_Y)) {
+      if(cell_X >= 0 && cell_X <= 12 && cell_Y >=0 && cell_Y <= 8) { // The To place is not outside the board
+         var already_exists = false;
+         var i;
+         for (i = 0; i < dpieces.length; i++) {
+            if(dpieces[i].ishere(cell_X, cell_Y)) {
                already_exists = true;
+               break;
             }
          }
-      }
 
-      if (!already_exists) {
-         select_Pos = selected_piece.getPos();
-         if ((select_Pos.x % 2 === 0 && select_Pos.y % 2 === 0) || (select_Pos.x % 2 === 1 && select_Pos.y % 2 === 1)) {
-            fill(60, 150, 90);
-            rect(board_start_X+select_Pos.x*squaresize, board_start_Y+select_Pos.y*squaresize, squaresize, squaresize);
+         if (!already_exists) {
+            for (i = 0; i < lpieces.length; i++) {
+               if(lpieces[i].ishere(cell_X, cell_Y)) {
+                  already_exists = true;
+               }
+            }
          }
-         if ((select_Pos.x % 2 === 0 && select_Pos.y % 2 === 1) || (select_Pos.x % 2 === 1 && select_Pos.y % 2 === 0)) {
-            fill(255, 255, 255);
-            rect(board_start_X+select_Pos.x*squaresize, board_start_Y+select_Pos.y*squaresize, squaresize, squaresize);
+
+         if (!already_exists) {
+            select_Pos = selected_piece.getPos();
+            if ((select_Pos.x % 2 === 0 && select_Pos.y % 2 === 0) || (select_Pos.x % 2 === 1 && select_Pos.y % 2 === 1)) {
+               fill(60, 150, 90);
+               rect(board_start_X+select_Pos.x*squaresize, board_start_Y+select_Pos.y*squaresize, squaresize, squaresize);
+            }
+            if ((select_Pos.x % 2 === 0 && select_Pos.y % 2 === 1) || (select_Pos.x % 2 === 1 && select_Pos.y % 2 === 0)) {
+               fill(255, 255, 255);
+               rect(board_start_X+select_Pos.x*squaresize, board_start_Y+select_Pos.y*squaresize, squaresize, squaresize);
+            }
+            selected_piece.place(cell_X, cell_Y);
+            selected_piece = undefined;
          }
-         selected_piece.place(cell_X, cell_Y);
-         selected_piece = undefined;
-      }
       }
    }
 
